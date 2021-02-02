@@ -33,9 +33,42 @@ h1 {
 }
 
 .chat-box {
+  display: flex;
   padding: 10px;
   height: 90%;
-  align-items: flex-end;
+  width: 100%;
+  align-items: flex-start;
   flex-wrap: wrap;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.user, .avatar {
+  width: 5rem;
+  padding: 10px;
+}
+
+.message {
+  width: 100%;
+  padding: 10px;
+}
+
+.input-container{
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+}
+
+.message-input {
+  width: 75%;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
 }
