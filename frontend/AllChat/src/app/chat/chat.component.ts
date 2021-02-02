@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-
+  messages: String[] = [];
   constructor() { }
 
   ngOnInit(): void {
+    this.messages = [
+      "hello world!",
+      "my name is",
+      "bob"
+    ];
   }
-
 }
