@@ -50,22 +50,25 @@ h1 {
 
 .user, .avatar {
   width: 5rem;
+  height: 20px;
   padding: 10px;
 }
 
 .message {
   width: 100%;
   padding: 10px;
+  height: 0;
 }
 
 .input-container{
   display: flex;
   flex-direction: row;
-  width: 75%;
+  width:100%;
+  top: 65%;
 }
 
 .message-input {
-  width: 75%;
+  width: 100%;
 }
 
 .user-container {
