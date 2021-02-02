@@ -1,0 +1,40 @@
+@import "../globals.scss";
+
+.main {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 10px;
+  transform: translate(-40%, -40%);
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  width: 75%;
+  box-shadow: 1px 2px 8px #888888;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+.chat-title {
+  width: 100%;
+  box-shadow: 0 4px 2px -2px #888888;
+  text-align: center;
+  align-items: flex;
+}
+
+.chat-box {
+  padding: 10px;
+  height: 90%;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
