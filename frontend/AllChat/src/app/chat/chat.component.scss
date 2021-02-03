@@ -38,7 +38,7 @@ h1 {
   width: 100%;
   align-items: flex-start;
   align-content: flex-start;
-  flex-wrap: wrap;
+  flex-direction: column;
   overflow-y: auto;
 }
 
@@ -58,7 +58,7 @@ h1 {
 .message {
   width: 100%;
   padding: 10px;
-  height: 0;
+  height: auto;
 }
 
 .input-container{
@@ -72,6 +72,7 @@ h1 {
 
 .message-input {
   width: 90%;
+  height: 10%;
   margin-left:20px;
 }
 

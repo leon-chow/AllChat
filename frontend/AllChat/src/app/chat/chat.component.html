@@ -7,20 +7,20 @@
       <div class="message-container" *ngFor="let message of messages">
         <div class="user-container">
           <div class="user">
-            <p> {{ message[0] }} &nbsp; </p>
+            {{ message[0] }} &nbsp;
           </div>
-          <div class="avatar">
-            <p> {{ message[1] }} </p>
-          </div>
+          <!-- <div class="avatar">
+            {{ message[1] }}
+          </div> -->
         </div>
         <div class="message">
-          <p> {{ message[2] }} </p>
+          {{ message[2] }}
         </div>
       </div>
     </div>
     <div class="input-container">
-      <textarea matInput max-rows="5" maxlength="500" class="message-input"> </textarea>
-      <button mat-raised-button> Send </button>
+      <textarea #inputMessage matInput cdkTextareaAutosize cdkAutofill max-rows="5" maxlength="400" class="message-input"> </textarea>
+      <button mat-raised-button (click)="sendMessage(inputMessage)"> Send </button>
     </div>
   </div>
 </div>
