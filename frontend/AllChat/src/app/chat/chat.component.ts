@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit {
     ];
   }
 
-  // TODO: change to use API
+  // TODO: change to use API, add service
   sendMessage(message: any): void {
     if (message.value.trim() != '' && message.value != '') {
       console.log(`posting message: ${message.value}`);

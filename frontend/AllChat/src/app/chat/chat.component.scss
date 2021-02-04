@@ -62,17 +62,16 @@ h1 {
 }
 
 .input-container{
-  position: absolute;
+  border-top: 1px solid gray;
   display: flex;
   flex-direction: row;
-  width: 70%;
-  left: 5%;
-  top: 65%;
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .message-input {
   width: 90%;
-  height: 10%;
   margin-left:20px;
 }
 
