@@ -1,0 +1,7 @@
+{
+  "http://localhost:4200/chat/getMessages": {
+      "target": "http://localhost:5001/all-chat-100617197/us-central1/getMessages",
+      "secure": false,
+      "logLevel": "debug"
+  }
+}

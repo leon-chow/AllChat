@@ -18,20 +18,17 @@
   </div>
   <div class="chat">
     <div class="chat-title">
-      <h1> Gamer Chat Room </h1>
+      <h1> {{ currentChannel }} Chat Room </h1>
     </div>
     <div class="chat-box">
-      <div class="message-container" *ngFor="let message of messages">
+      <div class="message-container" *ngFor="let message of messages$ | async">
         <div class="user-container">
           <div class="user">
-            {{ message[0] }} &nbsp;
+            {{ message.username }} &nbsp;
           </div>
-          <!-- <div class="avatar">
-            {{ message[1] }}
-          </div> -->
         </div>
         <div class="message">
-          {{ message[1] }}
+          {{ message.message }}
         </div>
       </div>
     </div>

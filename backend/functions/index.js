@@ -7,36 +7,26 @@ admin.initializeApp();
 
 // Take the text parameter passed to this HTTP endpoint and insert it into 
 // Firestore under the path /messages/:documentId/original
+// put messages
 exports.addMessage = functions.https.onRequest(async (req, res) => {
   // Grab the text parameter.
-  const original = req.query.text;
+  console.log(req.query);
+  const message = req.query.message;
+  const username = req.query.username;
   // Push the new message into Firestore using the Firebase Admin SDK.
-  const writeResult = await admin.firestore().collection('messages').add({original: original});
+  const writeResult = await admin.firestore().collection('messages').add({username: username, message: message});
   // Send back a message that we've successfully written the message
   res.json({result: `Message with ID: ${writeResult.id} added.`});
 });
 
-// Listens for new messages added to /messages/:documentId/original and creates an
-// uppercase version of the message to /messages/:documentId/uppercase
-exports.makeUppercase = functions.firestore.document('/messages/{documentId}')
-    .onCreate((snap, context) => {
-      // Grab the current value of what was written to Firestore.
-      const original = snap.data().original;
-
-      // Access the parameter `{documentId}` with `context.params`
-      functions.logger.log('Uppercasing', context.params.documentId, original);
-      
-      const uppercase = original.toUpperCase();
-      
-      // You must return a Promise when performing asynchronous tasks inside a Functions such as
-      // writing to Firestore.
-      // Setting an 'uppercase' field in Firestore document returns a Promise.
-      return snap.ref.set({uppercase}, {merge: true});
-    });
-
-// Practice delete function here
-exports.deleteMessage = functions.firestore.document('/messages').onDelete((snap,context) => {
-    const original = snap.data().original
-    functions.logger.log(`Deleting message ${context.params.documentId}`, context.params.documentId, original);
-    return snap.ref.set({original}, {merge: true});
+// get messages
+exports.getMessages = functions.https.onRequest(async (req, res) => {
+  const readResult = await admin.firestore().collection('messages').get();
+  var messages = [];
+  readResult.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+    messages.push({"id": doc.id, "message": doc.data().message, "username": doc.data().username});
+  });
+  console.log(messages);
+  res.json(messages);
 });
