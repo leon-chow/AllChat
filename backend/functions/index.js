@@ -1,5 +1,6 @@
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
+var moment = require('moment');
 
 // The Firebase Admin SDK to access Firestore.
 const admin = require('firebase-admin');
@@ -14,7 +15,8 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
   const message = req.query.message;
   const username = req.query.username;
   // Push the new message into Firestore using the Firebase Admin SDK.
-  const writeResult = await admin.firestore().collection('messages').add({username: username, message: message});
+  var t = moment().format('LT');
+  const writeResult = await admin.firestore().collection('messages').add({username: username, message: message, timePosted: t});
   // Send back a message that we've successfully written the message
   res.json({result: `Message with ID: ${writeResult.id} added.`});
 });
@@ -25,8 +27,11 @@ exports.getMessages = functions.https.onRequest(async (req, res) => {
   var messages = [];
   readResult.forEach(doc => {
     console.log(doc.id, '=>', doc.data());
-    messages.push({"id": doc.id, "message": doc.data().message, "username": doc.data().username});
+    messages.push({"id": doc.id, "message": doc.data().message, "username": doc.data().username, "timePosted": doc.data().timePosted});
   });
   console.log(messages);
+  messages.sort(function (a, b) {
+    return a.timePosted.localeCompare(b.timePosted);
+});
   res.json(messages);
 });
