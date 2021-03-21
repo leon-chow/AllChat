@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="input-container">
-      <textarea #inputMessage matInput cdkTextareaAutosize cdkAutofill max-rows="5" maxlength="400" class="message-input"> </textarea>
+      <textarea (keyup.enter)="sendMessage(inputMessage)" #inputMessage matInput cdkTextareaAutosize cdkAutofill max-rows="5" maxlength="400" class="message-input"> </textarea>
       <button mat-raised-button (click)="sendMessage(inputMessage)"> Send </button>
     </div>
   </div>

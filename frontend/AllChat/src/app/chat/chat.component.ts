@@ -13,7 +13,7 @@ interface Message {
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  messages$: Observable<any> | undefined;
+  messages$: any | undefined;
   interval: any;
   channels: string[] = ['General', 'Games', 'Random', 'Work']
   currentChannel: string = "General";
@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit {
   getMessages(): void {
     this.chatService.getMessages().
       subscribe(data => {
+        console.log(data);
         this.messages$ = data;
       });
   }
@@ -41,8 +42,10 @@ export class ChatComponent implements OnInit {
       message.value = message.value.trim();
       this.chatService.sendMessage({"username": message.username, "message": message.value, "channel": this.currentChannel});
       message.value = '';
+      setTimeout(() => {
+        this.getMessages();
+      }, 100);
     }
-    this.getMessages();
   }
 
   changeChannels(channel: string) {
