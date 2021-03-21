@@ -3,5 +3,10 @@
       "target": "http://localhost:5001/all-chat-100617197/us-central1/getMessages",
       "secure": false,
       "logLevel": "debug"
+  },
+  "http://localhost:4200/chat/addMessage": {
+    "target": "http://localhost:5001/all-chat-100617197/us-central1/addMessage",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

@@ -21,6 +21,10 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService ) { }
 
   ngOnInit(): void {
+    this.getMessages();
+  }
+
+  getMessages(): void {
     this.messages$ = this.chatService.getMessages();
     this.messages$?.forEach(data => {
       console.log(data);
@@ -31,9 +35,12 @@ export class ChatComponent implements OnInit {
   // TODO: change to use API, add service
   sendMessage(message: any): void {
     if (message.value.trim() != '' && message.value != '') {
-      console.log(`posting message: ${message.value}`);
+      message.username = "bob";
+      message.value = message.value.trim();
+      this.chatService.sendMessage({"username": message.username, "message": message.value});
       message.value = '';
     }
+    this.getMessages();
   }
 
   changeChannels(channel: string) {

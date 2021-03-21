@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatService {
-  messages: string[] = [];
   api: string = "http://localhost:4200/chat";
 
   constructor(private httpClient: HttpClient) { }
@@ -15,7 +14,11 @@ export class ChatService {
     return this.httpClient.get(this.api + "/getMessages");
   }
 
-  sendMessages(message: string): void {
-    this.httpClient.post(this.api + "/sendMessage", message);
+  sendMessage(message: any): void {
+    console.log("sending message: ", message);
+    this.httpClient.post(this.api + "/addMessage", message, {
+      params: new HttpParams()
+      .set('username', message.username)
+      .set('message', message.message)}).subscribe();
   }
 }
