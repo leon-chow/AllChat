@@ -14,7 +14,7 @@ interface Message {
 })
 export class ChatComponent implements OnInit {
   messages$: Observable<any> | undefined;
-  messages: any = [];
+  interval: any;
   channels: string[] = ['General', 'Games', 'Random', 'Work']
   currentChannel: string = "General";
 
@@ -22,14 +22,16 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMessages();
+    this.interval = setInterval(() => {
+      this.getMessages();
+    }, 60000);
   }
 
   getMessages(): void {
-    this.messages$ = this.chatService.getMessages();
-    this.messages$?.forEach(data => {
-      console.log(data);
-      console.log("messages:" + this.messages);
-    });
+    this.chatService.getMessages().
+      subscribe(data => {
+        this.messages$ = data;
+      });
   }
 
   // TODO: change to use API, add service
@@ -37,7 +39,7 @@ export class ChatComponent implements OnInit {
     if (message.value.trim() != '' && message.value != '') {
       message.username = "bob";
       message.value = message.value.trim();
-      this.chatService.sendMessage({"username": message.username, "message": message.value});
+      this.chatService.sendMessage({"username": message.username, "message": message.value, "channel": this.currentChannel});
       message.value = '';
     }
     this.getMessages();
@@ -45,5 +47,6 @@ export class ChatComponent implements OnInit {
 
   changeChannels(channel: string) {
     this.currentChannel = channel;
+    console.log(channel);
   }
 }

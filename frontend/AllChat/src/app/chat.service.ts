@@ -19,6 +19,7 @@ export class ChatService {
     this.httpClient.post(this.api + "/addMessage", message, {
       params: new HttpParams()
       .set('username', message.username)
-      .set('message', message.message)}).subscribe();
+      .set('message', message.message)
+      .set('channel', message.channel)}).subscribe();
   }
 }

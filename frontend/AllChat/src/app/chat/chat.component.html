@@ -21,7 +21,7 @@
       <h1> {{ currentChannel }} Chat Room </h1>
     </div>
     <div class="chat-box">
-      <div class="message-container" *ngFor="let message of messages$ | async">
+      <div class="message-container" *ngFor="let message of messages$">
         <div class="user-container">
           <div class="user">
             {{ message.username }}: &nbsp;

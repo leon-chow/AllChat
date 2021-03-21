@@ -11,13 +11,12 @@ admin.initializeApp();
 // put messages
 exports.addMessage = functions.https.onRequest(async (req, res) => {
   // Grab the text parameter.
-  console.log("query: ", req.query);
-  console.log("body: ", req.body);
   const message = req.query.message;
   const username = req.query.username;
+  const channel = req.query.channel.toLocaleLowerCase();
   // Push the new message into Firestore using the Firebase Admin SDK.
   var t = moment().format('LT');
-  const writeResult = await admin.firestore().collection('channels').doc('general').collection('messages').add({username: username, message: message, timePosted: t});
+  const writeResult = await admin.firestore().collection('channels').doc(channel).collection('messages').add({username: username, message: message, timePosted: t});
   // Send back a message that we've successfully written the message
   res.json({result: `Message with ID: ${writeResult.id} added.`});
 });
@@ -30,8 +29,8 @@ exports.getMessages = functions.https.onRequest(async (req, res) => {
     console.log(doc.id, '=>', doc.data());
     messages.push({"id": doc.id, "message": doc.data().message, "username": doc.data().username, "timePosted": doc.data().timePosted});
   });
-  /*messages.sort(function (a, b) {
+  messages.sort(function (a, b) {
     return a.timePosted.localeCompare(b.timePosted);
-  });*/ 
+  }); 
   res.json(messages);
 });
