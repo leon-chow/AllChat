@@ -2,17 +2,8 @@
   <div class="channels">
     <h3> List of Channels </h3>
     <ul class="channel-list">
-      <li>
-        <button (click)="changeChannels(channels[0])" mat-flat-button> {{ channels[0] }} </button>
-      </li>
-      <li>
-        <button (click)="changeChannels(channels[1])" mat-flat-button> {{ channels[1] }}  </button>
-      </li>
-      <li>
-        <button (click)="changeChannels(channels[2])" mat-flat-button> {{ channels[2] }}  </button>
-      </li>
-      <li>
-        <button (click)="changeChannels(channels[3])" mat-flat-button> {{ channels[3] }}  </button>
+      <li *ngFor="let channel of channels">
+        <button class="channel-buttons" (click)="changeChannels(channel)" mat-flat-button> {{ channel }} </button>
       </li>
     </ul>
   </div>
