@@ -1,5 +1,5 @@
 import { ChatService } from './../chat.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 interface Message {
@@ -13,6 +13,12 @@ interface Message {
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('autoScroll') private myScrollContainer?: ElementRef;
+
+  ngAfterViewChecked() {
+      this.scrollToBottom();
+  }
+
   messages$: any | undefined;
   interval: any;
   channels: string[] = ['General', 'Games', 'Random', 'Work']
@@ -24,6 +30,7 @@ export class ChatComponent implements OnInit {
     this.getMessages();
     this.interval = setInterval(() => {
       this.getMessages();
+      this.scrollToBottom();
     }, 60000);
   }
 
@@ -44,12 +51,19 @@ export class ChatComponent implements OnInit {
       message.value = '';
       setTimeout(() => {
         this.getMessages();
-      }, 100);
+      }, 500);
     }
   }
 
   changeChannels(channel: string) {
     this.currentChannel = channel;
     console.log(channel);
+  }
+
+  // auto scroll to bottom
+  scrollToBottom(): void {
+    if (this.myScrollContainer) {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }
   }
 }

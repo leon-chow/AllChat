@@ -20,7 +20,7 @@
     <div class="chat-title">
       <h1> {{ currentChannel }} Chat Room </h1>
     </div>
-    <div class="chat-box">
+    <div class="chat-box" #autoScroll>
       <div class="message-container" *ngFor="let message of messages$">
         <div class="user-container">
           <div class="user">
@@ -30,7 +30,7 @@
         <div class="message">
           {{ message.message }}
           <div class="time">
-            {{ message.timePosted }}
+            {{ message.timePosted | date: 'fullDate'}} {{message.timePosted | date:'shortTime'}}
           </div>
         </div>
       </div>
